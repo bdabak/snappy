@@ -1,0 +1,209 @@
+<mvc:View
+    controllerName="hcm.ux.snappy.controller.SnappyDetail"
+    xmlns:ui="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    height="100%"
+>
+    <Page
+        id="idPageSnappyDetail"
+        enableScrolling="true"
+        floatingFooter="true"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+        titleAlignment="Center"
+        title="{parts:[{path:'localModel>/snappyType'}, {path:'Ename'}], formatter: '.constructPageTitle'}"
+    >
+        <content>
+            <IconTabBar
+                id="idIconTabBar"
+                select="onIconFilterSelect"
+                stretchContentHeight="false"
+                expandable="false"
+                selectedKey="{localModel>/selectedKey}"
+				class="sapUiNoContentPadding"
+            >
+                <items>
+                    <IconTabFilter
+                        icon="sap-icon://opportunity"
+                        text="{i18n>competencyTitle}"
+                        key="C"
+                    />
+                    <IconTabFilter
+                        icon="sap-icon://technical-object"
+                        text="{i18n>jobRequiredTitle}"
+                        key="T"
+                        visible="{= ${localModel>/snappyType} !== 'EMPLY' }"
+                    />
+                </items>
+                <content>
+                    <ScrollContainer>
+                    </ScrollContainer>
+                    <Table
+                        id="idTableSnappyDetail"
+                        items="{path:'/SnappyDetailSet',
+								events:{
+							dataRequested: '.onSnappyDetailRequested',
+							dataReceived: '.onSnappyDetailReceived'
+						}}"
+                        busyIndicatorDelay="0"
+                    >
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title
+                                    id="title"
+                                    text="{i18n>snappyDetailViewTitle}"
+                                />
+                                <ToolbarSpacer />
+                            </Toolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column width="5rem" hAlign="{= ${device>/system/desktop} ? 'Begin' : 'Center'}">
+                                <Label text="{i18n>ACT}" />
+                            </Column>
+                            <Column demandPopin="true" minScreenWidth="Tablet" popinDisplay="Inline" >
+                                <Label text="{i18n>Frgit}" />
+                            </Column>
+							 <Column  hAlign="Center" demandPopin="true" minScreenWidth="Desktop" 
+							 	popinDisplay="Inline">
+                                <Label text="{i18n>Snpns}" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <HBox justifyContent="Center">
+                                        <Button
+                                            visible="{= ${localModel>/snappyType2} === '' }"
+                                            icon="{= ${Snpnt} !== '' ? 'sap-icon://edit' : 'sap-icon://add' }"
+                                            class="sapUiTinyMarginEnd"
+                                            tooltip="{= ${Snpnt} !== '' ? ${i18n>EDIT_SNAPPY} :  ${i18n>CREATE_SNAPPY} }"
+											type="{= ${Snpnt} !== '' ? 'Accept' : 'Emphasized' }"
+                                            press=".onEditSnappyDetailSelected"
+                                        />
+                                        <Button
+                                            visible="{= ${localModel>/snappyType2} !== '' &amp;&amp; ${Snpnt} !== ''}"
+                                            icon="sap-icon://display"
+                                            class="sapUiTinyMarginEnd"
+                                            press=".onEditSnappyDetailSelected"
+                                        />
+                                        <Button
+                                            visible="{= ${localModel>/snappyType2} === '' &amp;&amp; ${Snpnt} !== ''}"
+                                            icon="sap-icon://delete"
+                                            type="Reject"
+                                            tooltip="{i18n>DELETE_SNAPPY}"
+                                            press=".onDeleteSnappyDetailSelected"
+                                        />
+                                    </HBox>
+                                    <Text text="{Frgit}" />
+                                    <ObjectStatus
+                                        inverted="true"
+                                        icon="{path : 'Snpnt', formatter:'._formatIcon'}"
+                                        state="{path : 'Snpnt', formatter:'._formatState'}"
+                                    />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                        <noData>
+                            <IllustratedMessage
+                                description="Henüz snappy oluşturulmamış"
+                                illustrationType="sapIllus-NoNotifications"
+                                title="Snappy Mevcut Değil"
+                            />
+                        </noData>
+                    </Table>
+                    <!-- <ui:Table
+                        id="tableSnappyDetail"
+                        selectionMode="None"
+                        rows="{/SnappyDetailSet}"
+                        showColumnVisibilityMenu="true"
+                        ariaLabelledBy="title"
+                        visibleRowCount="9"
+                    >
+                        <ui:extension>
+                            <OverflowToolbar>
+                                <Title
+                                    id="title"
+                                    text="{i18n>snappyDetailViewTitle}"
+                                />
+                                <ToolbarSpacer />
+                            </OverflowToolbar>
+                        </ui:extension>
+                        <ui:columns>
+                            <ui:Column width="10%">
+                                <Label text="{i18n>ACT}" />
+                                <ui:template>
+                                    <HBox>
+                                        <Button
+                                            visible="{= ${localModel>/snappyType2} === '' }"
+                                            icon="sap-icon://edit"
+                                            class="sapUiTinyMarginEnd"
+                                            press="onEditSnappyDetailSelected"
+                                        />
+                                        <Button
+                                            visible="{= ${localModel>/snappyType2} !== '' &amp;&amp; ${Snpnt} !== ''}"
+                                            icon="sap-icon://display"
+                                            class="sapUiTinyMarginEnd"
+                                            press="onEditSnappyDetailSelected"
+                                        />
+                                        <Button
+                                            visible="{= ${localModel>/snappyType2} === '' &amp;&amp; ${Snpnt} !== ''}"
+                                            icon="sap-icon://delete"
+                                            type="Reject"
+                                            press="onDeleteSnappyDetailSelected"
+                                        />
+                                    </HBox>
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column width="10%">
+                                <Label text="{i18n>Snpns}" />
+                                <ui:template>
+                                    <ObjectStatus
+                                        class="sapUiMediumMarginBegin"
+                                        inverted="true"
+                                        icon="{path : 'Snpnt', formatter:'._formatIcon'}"
+                                        state="{path : 'Snpnt', formatter:'._formatState'}"
+                                    />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column>
+                                <Label text="{i18n>Frgit}" />
+                                <ui:template>
+                                    <Text text="{Frgit}" />
+                                </ui:template>
+                            </ui:Column>
+                        </ui:columns>
+                        <ui:footer>
+                            <OverflowToolbar>
+                                <ToolbarSpacer />
+                            </OverflowToolbar>
+                        </ui:footer>
+                    </ui:Table> -->
+                </content>
+            </IconTabBar>
+        </content>
+        <footer>
+            <Toolbar class="sapUIMargin">
+                <ToolbarSpacer />
+                <!--<Button type="Emphasized" visible="{= ${localModel>/snappyStatus} !== 'CMP' }" text="{i18n>DELETE_SNAPPY}" icon="sap-icon://delete"
+					press="onDeleteSnappy"/>
+				<Button type="Emphasized" visible="{= ${localModel>/snappyStatus} !== 'CMP' }" text="{i18n>COMPLETE_SNAPPY}" icon="sap-icon://complete" press="onCompleteSnappy"/>
+				-->
+                <Button
+                    type="Emphasized"
+                    visible="{= ${localModel>/snappyType2} === '' }"
+                    text="{i18n>DELETE_ALL_SNAPPY}"
+                    icon="sap-icon://delete"
+                    press="onDeleteSnappy"
+                />
+                <Button
+                    type="Emphasized"
+                    visible="false"
+                    text="{i18n>COMPLETE_SNAPPY}"
+                    icon="sap-icon://complete"
+                    press="onCompleteSnappy"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

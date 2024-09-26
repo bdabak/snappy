@@ -1,0 +1,126 @@
+<mvc:View
+    controllerName="hcm.ux.snappy.controller.SnappyList"
+    xmlns:ui="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    height="100%"
+>
+    <Page
+        showHeader="true"
+        title="{path:'localModel>/snappyType', formatter:'.constructPageTitle'}"
+        titleAlignment="Center"
+        floatingFooter="true"
+    >
+        <content>
+            <Table id="idTableSnappyList" items="{
+			path:'/SnappyHeaderSet', 
+			events:{
+				dataRequested: '.onSnappyListRequested',
+				dataReceived: '.onSnappyListReceived'
+			}}"
+				busyIndicatorDelay="0"
+			>
+				<headerToolbar>
+				<Toolbar>
+                        <Title
+                            id="title"
+                            text="{i18n>snappyListViewTitle}"
+                        />
+                        <ToolbarSpacer />
+                        <SearchField
+                            placeholder="{i18n>snappySearh}"
+                            value="{localModel>/snappySearhString}"
+                            search="oSnappyFilter"
+                            width="15rem"
+                        />
+                    </Toolbar>
+				</headerToolbar>
+                <columns>
+                    <Column
+                       width="17rem"
+                        visible="{= ${localModel>/snappyType} === 'RECVD'}"
+                    >
+                        <Label text="{i18n>Appre}" />
+                    </Column>
+                    <Column
+                        width="17rem"
+                        visible="{= ${localModel>/snappyType} !== 'RECVD'}"
+                    >
+                        <Label text="{i18n>Ename}" />
+                    </Column>
+                    <Column visible="{= ${localModel>/snappyType} !== 'RECVD'}"
+						demandPopin="true"
+						minScreenWidth="Tablet"
+					>
+                        <Label text="{i18n>Plstx}" />
+                    </Column>
+                    <Column visible="{= ${localModel>/snappyType} !== 'RECVD'}"
+						demandPopin="true"
+						minScreenWidth="Desktop"
+					>
+                        <Label text="{i18n>Orgtx}" />
+                    </Column>
+                    <Column demandPopin="true"
+						minScreenWidth="Desktop">
+                        <Label text="{i18n>Lv11t}" />
+                    </Column>
+                    <Column  demandPopin="true"
+						minScreenWidth="Desktop">
+                        <Label text="{i18n>Lv05t}" />
+                    </Column>
+                    <Column
+                        visible="{= ${localModel>/snappyType} === 'RECVD' || ${localModel>/snappyType} === 'GIVEN' }"
+						demandPopin="true"
+						minScreenWidth="Desktop"
+                    >
+                        <Label text="{i18n>Sntyt}" />
+                    </Column>
+                    <Column width="10rem" hAlign="Center">
+                        <Label text="{i18n>Snstt}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Active" press=".onSnappySelectionChange">
+                        <cells>
+                            <Text text="{Appre}" />
+                            <ObjectIdentifier
+                                title="{Ename} ({path: 'Pernr' , formatter:'._formatNumber'})"
+                            />
+                            <Text text="{Plstx}" />
+                            <Text text="{Orgtx}" />
+                            <Text text="{Lv11t}" />
+                            <Text text="{Lv05t}" />
+                            <Text text="{Sntyt}" />
+                            <ObjectStatus
+                                inverted="true"
+                                icon="{path : 'Snpst', formatter:'._formatIcon'}"
+                                state="{path : 'Snpst', formatter:'._formatState'}"
+                                text="{Snstt}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+                <noData>
+                            <IllustratedMessage
+                                description="Henüz bu kategori için snappy verilmemiş"
+                                illustrationType="sapIllus-NoSearchResults"
+                                title="Snappy Listesi Boş"
+                            />
+                        </noData>
+            </Table>
+
+        </content>
+        <footer>
+            <Toolbar visible="{= ${localModel>/snappyType} === 'EMPLY'}">
+                <ToolbarSpacer />
+                <Button
+                    visible="{= ${localModel>/snappyType} === 'EMPLY'}"
+                    type="Emphasized"
+                    text="{i18n>employeeValueHelp}"
+                    press="onEmployeeValueHelp"
+                    icon="sap-icon://employee-lookup"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

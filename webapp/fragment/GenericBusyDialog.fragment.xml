@@ -1,0 +1,3 @@
+<core:FragmentDefinition  xmlns="com.smod.ux.lib.controls" xmlns:core="sap.ui.core">
+	 <BusyDialog id="GenericBusyDialog" />
+</core:FragmentDefinition>

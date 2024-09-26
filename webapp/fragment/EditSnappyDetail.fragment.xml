@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>snappyEvaluation} - {localModel>/currentSnappyDetail/Frgit}"  draggable="true" contentWidth="500px">
+		<content>
+			<f:Form editable="true">
+				<f:layout>
+					<f:ResponsiveGridLayout labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+						emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"/>
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<!-- <f:FormElement label="{i18n>Frgit}">
+								<f:fields>
+									<Title text="{localModel>/currentSnappyDetail/Frgit}" />
+								</f:fields>
+							</f:FormElement> -->
+							<f:FormElement label="{i18n>Snpnt}">
+								<f:fields>
+									<!--<TextArea editable="{= ${localModel>/snappyStatus} !== 'CMP' }" value="{localModel>/currentSnappyDetail/Snpnt}" rows="8"/>
+									--><TextArea editable="{= ${localModel>/snappyType2} === '' }" value="{localModel>/currentSnappyDetail/Snpnt}" rows="8"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+		<beginButton>
+			<Button text="{i18n>CANCEL_ACTION}" press="onCancelEditSnappyDetailDialog"/>
+		</beginButton>
+		<endButton>
+			<!--<Button visible="{= ${localModel>/snappyStatus} !== 'CMP' }" text="{i18n>SAVE_ACTION}" icon="sap-icon://save" press="onEditSnappyDetail"
+				type="Emphasized"/>-->
+			<Button visible="{= ${localModel>/snappyType2} === '' }" text="{i18n>SAVE_ACTION}" icon="sap-icon://save" press="onEditSnappyDetail"
+				type="Emphasized"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

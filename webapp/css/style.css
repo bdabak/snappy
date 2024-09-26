@@ -1,0 +1,41 @@
+#processflow2-table {
+  padding: 0px;
+  margin: 0px;
+}
+
+.ApprovedChoice {
+  background-color: #10812a !important;
+}
+
+.WaitedChoice {
+  background-color: #6c757d !important;
+}
+
+.RejectedChoice {
+  background-color: #dc3545 !important;
+}
+
+.ChoiceAppointment.sapUiCalendarAppType08 {
+  background-color: blue;
+}
+
+.swal2-container {
+  z-index: 20 !important;
+  font-family: "72", "72full", Arial, Helvetica, sans-serif;
+}
+
+body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)
+  .swal2-container.swal2-backdrop-show,
+.swal2-container.swal2-noanimation {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(3px);
+}
+
+.swal2-html-message-container {
+  text-align: left !important;
+}
+
+.swal2-container.swal2-backdrop-show,
+.swal2-container.swal2-noanimation {
+  background: rgba(0, 0, 0, 0.35) !important;
+}

@@ -1,0 +1,26 @@
+<mvc:View
+    controllerName="hcm.ux.snappy.controller.Welcome"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true"
+    height="100%"
+    busyIndicatorDelay="0"
+>
+    <Page
+        showFooter="false"
+        showHeader="false"
+    >
+        <IllustratedMessage
+            enableVerticalResponsiveness="true"
+            illustrationType="sapIllus-SimpleTask"
+            title="{i18n>WELCOME_TITLE}"
+            description="{i18n>WELCOME_DESCRIPTION}"
+            enableFormattedText="true"
+        >
+            <additionalContent>
+                <Button text="{i18n>giveSnappy}"  press=".onGoToEmployeeSnappyView" icon="sap-icon://outbox" />
+                <Button text="{i18n>receivedSnappy}"  press=".onGoToReceivedSnappyView" class="sapUiTinyMarginBegin" icon="sap-icon://inbox"/>
+            </additionalContent>
+        </IllustratedMessage>
+    </Page>
+</mvc:View>

@@ -1,0 +1,172 @@
+{
+    "_version": "1.9.0",
+    "sap.app": {
+        "id": "hcm.ux.snappy",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZHCM_UX_SNAPPY_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml",
+                    "defaultCountMode": "None"
+                }
+            }
+        },
+        "sourceTemplate": {
+            "id": "sap.ui.ui5-template-plugin.1worklist",
+            "version": "1.52.7",
+            "toolsId": "39bc4b43-07b2-4938-a096-7ceb16bf4bb6"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://task",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "hcm.ux.snappy.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+        "config": {
+            "fullWidth": true
+        },
+        "dependencies": {
+            "minUI5Version": "1.42.0",
+            "libs": {
+                "sap.collaboration": {
+                    "lazy": true
+                },
+                "sap.f": {},
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+				"com.smod.ux.lib": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "hcm.ux.snappy.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ],
+            "js": [
+                {
+                    "uri": "utils/XLSX.js"
+                },
+                {
+                    "uri": "utils/FormValidator.js"
+                }
+            ]
+        },
+        "services": {
+            "ShellUIService": {
+                "factoryName": "sap.ushell.ui5service.ShellUIService",
+                "lazy": false,
+                "settings": {
+                    "setTitle": "auto"
+                }
+            }
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "hcm.ux.snappy.view",
+                "controlId": "mainContents",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "NotFound"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [
+				{
+                    "pattern": "",
+                    "name": "Welcome",
+                    "target": [
+                        "Welcome"
+                    ]
+                },
+                {
+                    "pattern": "SnappyList?View={Snpty}",
+                    "name": "SnappyList",
+                    "target": [
+                        "SnappyList"
+                    ]
+                },
+                {
+                    "pattern": "SnappyDetail?View={Snpty}&SnappyStatus={Snpst}&ApprovalId={Appid}&ApproverId={Apprp}",
+                    "name": "SnappyDetail",
+                    "target": [
+                        "SnappyDetail"
+                    ]
+                }
+            ],
+            "targets": {
+				"Welcome": {
+                    "viewId": "welcome",
+                    "viewName": "Welcome",
+					"viewLevel": 1
+                },
+                "SnappyList": {
+                    "viewId": "snappyList",
+                    "viewName": "SnappyList",
+					"viewLevel": 1
+                },
+                "SnappyDetail": {
+                    "viewId": "SnappyDetail",
+                    "viewName": "SnappyDetail",
+					"viewLevel": 2
+                },
+                "NotFound": {
+                    "viewName": "NotFound",
+                    "viewId": "NotFound"
+                }
+            }
+        }
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/zhcm_ux_snappy/webapp",
+        "_version": "1.1.0"
+    }
+}

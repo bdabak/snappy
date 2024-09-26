@@ -1,0 +1,94 @@
+<mvc:View
+	height="100%"
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="hcm.ux.snappy.controller.App"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:smod="hcm.ux.snappy.controls"
+	xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+	<!-- xmlns:tnt="sap.tnt" -->
+	<smod:NavManager>
+		<smod:sideContent>
+			<smod:SideBar
+				select=".onNavigateToPage"
+				expandedLogo="/sap/opu/odata/sap/ZHCM_UX_HAP_SRV/MimeInfoSet('%2FSAP%2FPublic%2FCustomImages%2Faltime_logo.png')/$value"
+				collapsedLogo="/sap/opu/odata/sap/ZHCM_UX_HAP_SRV/MimeInfoSet('%2FSAP%2FPublic%2FCustomImages%2Fbrand_logo_collapsed.png')/$value"
+				busyIndicatorDelay="0"
+				busy="{appModel>/Busy}"
+			>
+				<smod:links>
+			<smod:SideBarSeparator title="{i18n>giveSnappy}" />
+					<smod:SideBarNavLink
+						text="{i18n>FirstManagerSnappy}"
+						key="FRSMN"
+						icon="manage_accounts"
+						selected="{= ${appModel>/View} === 'FRSMN' }"
+						visible="{= ${appModel>/FirstManager} === true }"
+					/>
+					<smod:SideBarNavLink
+						text="{i18n>SecondManagerSnappy}"
+						key="SCNMN"
+						icon="supervisor_account"
+						visible="{= ${appModel>/SecondManager} === true }"
+					/>
+					<smod:SideBarNavLink
+						text="{i18n>EmployeeSnappy}"
+						key="EMPLY"
+						icon="query_stats"
+						selected="{= ${appModel>/View} === 'EMPLY' }"
+					/>
+					<smod:SideBarSeparator />
+						
+					
+					<smod:SideBarNavLink
+						text="{i18n>receivedSnappy}"
+						icon="move_to_inbox"
+						key="RECVD"
+						selected="{= ${appModel>/View} === 'RECVD' }"
+					/>
+					<smod:SideBarNavLink
+						text="{i18n>givenSnappy}"
+						icon="outbox"
+						key="GIVEN"
+						selected="{= ${appModel>/View} === 'GIVEN' }"
+					/>
+				</smod:links>
+			</smod:SideBar>
+		</smod:sideContent>
+		<smod:mainContent>
+			<App id="mainContents" />
+		</smod:mainContent>
+	</smod:NavManager>
+	<!-- <tnt:ToolPage id="app" class="sapUiDemoToolPage">
+		<tnt:header>
+			<tnt:ToolHeader>
+				<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onSideNavButtonPress"
+					tooltip="{i18n>navigationToggleButtonTooltip}">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<ToolbarSpacer/>
+				<Title text="{i18n>appTitle}" level="H2"/>
+				<ToolbarSpacer/>
+			</tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation expanded="false" itemSelect=".onItemSelect">
+				<tnt:NavigationList>
+					<tnt:NavigationListItem text="{i18n>giveSnappy}" key="giveSnappy" icon="sap-icon://journey-arrive">
+						<tnt:NavigationListItem text="{i18n>FirstManagerSnappy}" key="FirstManagerSnappy" ></tnt:NavigationListItem>
+						<tnt:NavigationListItem text="{i18n>SecondManagerSnappy}" key="SecondManagerSnappy"></tnt:NavigationListItem>
+						<tnt:NavigationListItem text="{i18n>EmployeeSnappy}" key="EmployeeSnappy"></tnt:NavigationListItem>
+					</tnt:NavigationListItem>
+					<tnt:NavigationListItem text="{i18n>receivedSnappy}" icon="sap-icon://feedback" key="ReceivedSnappy"/>
+					<tnt:NavigationListItem text="{i18n>givenSnappy}" icon="sap-icon://response" key="GivenSnappy"/>
+				</tnt:NavigationList>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<App id="mainContents"/>
+		</tnt:mainContents>
+	</tnt:ToolPage> -->
+</mvc:View>
